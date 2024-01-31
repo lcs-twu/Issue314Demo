@@ -8,17 +8,31 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showMessage = false
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ScrollView{
+            VStack{
+                Text("Hello World")
+                Button("Click me") {
+                                self.showMessage.toggle()
+                            }
+                            .padding()
+                            .alert(isPresented: $showMessage) {
+                                Alert(title: Text("Hi"))
+                            }
+                Text("Description")
+            }
         }
         .padding()
     }
 }
 
-#Preview {
+#Preview("English") {
     ContentView()
+        .environment(\.locale, Locale(identifier: "en"))
+}
+
+#Preview("Chinese-Simplified") {
+    ContentView()
+        .environment(\.locale, Locale(identifier: "zh-hans"))
 }
